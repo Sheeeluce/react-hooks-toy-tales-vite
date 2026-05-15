@@ -10,7 +10,7 @@ function ToyCard({toy}) {
         className="toy-avatar"
       />
       <p>{"toy.likes"} Likes </p>
-      <button className="like-btn">Like {"<3"}</button>
+      <button className="like-btn" onClick={()=> updatedLikes(toy)}>Like {"<3"}</button>
       <button className="del-btn" onClick={()=>deleteToy(toy.id)}>Donate to GoodWill</button>
     </div>
   );

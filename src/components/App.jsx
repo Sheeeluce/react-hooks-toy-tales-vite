@@ -41,6 +41,27 @@ function App() {
     })
   }
 
+  function updateLikes(toy) {
+    const updatedLikes = {
+      likes: toy.likes + 1,
+    }
+    fetch(`http://localhost:3001/toys/${id}`,{
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      bofy: JSON.stringify(updatedLikes),
+    })
+    .then((resp) => resp.json())
+    .then((updatedToy)=>{
+      const updatedToyList = toys.map((t) =>
+        t.id === updatedToy.id ? updatedToy : t
+      )
+      setToys(updatedToyList)
+    })
+    
+  }
+
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -52,7 +73,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} deleteToy={deleteToy}/>
+      <ToyContainer toys={toys} deleteToy={deleteToy} updateLikes={updateLikes}/>
     </>
   );
 }
