@@ -15,6 +15,19 @@ function App() {
     .then((data) => setToys(data))
   },[]);
 
+  function addToy(newToy) {
+    fetch("http://localhost:3001/toys", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(newToy)
+  })
+  .then((resp)=> resp.json())
+  .then((addedToy)=> {
+    setToys([...toys, addedToy]);
+  })
+  }
 
   function handleClick() {
     setShowForm((showForm) => !showForm);
@@ -23,7 +36,7 @@ function App() {
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm addToy={addToy}/> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
