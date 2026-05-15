@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from "./Header";
 import ToyForm from "./ToyForm";
@@ -45,12 +45,12 @@ function App() {
     const updatedLikes = {
       likes: toy.likes + 1,
     }
-    fetch(`http://localhost:3001/toys/${id}`,{
+    fetch(`http://localhost:3001/toys/${toy.id}`,{
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      bofy: JSON.stringify(updatedLikes),
+      body: JSON.stringify(updatedLikes),
     })
     .then((resp) => resp.json())
     .then((updatedToy)=>{
